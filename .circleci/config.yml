@@ -22,9 +22,4 @@ workflows:
   version: 2.1
   build_and_test:
     jobs:
-      - build:
-          filters:
-            tags:
-              only: /release\-.*/
-            branches:
-              only: /nobuilds\.*/
+      - build
