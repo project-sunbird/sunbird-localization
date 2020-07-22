@@ -1,5 +1,8 @@
 version: 2.1
 jobs:
+  hold:
+    steps:
+      - run: printf "A hold job to wait for a manual approval"
   build:
     working_directory: ~/project
     docker:
@@ -17,10 +20,13 @@ jobs:
             else
               echo "Nothing to publish!" 
             fi
-
+            
 workflows:
   version: 2
   build-workflow:
     jobs:
-      - build:
+      - hold:
           type: approval
+      - build:
+          requires:
+            - hold
