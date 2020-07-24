@@ -31,6 +31,7 @@ jobs:
               -u $OAUTH_TOKEN:x-oauth-basic \
               -d '{"body": "The Respective JIRA ticket URL for the PR is - https://project-sunbird.atlassian.net/browse/'"$ticket"/'."}' \
                      https://api.github.com/repos/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME/issues/$CIRCLE_PR_NUMBER/comments
+#
 workflows:
   version: 2
   build-workflow:
