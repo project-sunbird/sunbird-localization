@@ -1,5 +1,10 @@
 version: 2.1
 jobs:
+  hold:
+    docker:
+      - image: circleci/node:12
+    steps:
+      - run: printf "A hold job to wait for a manual approval"
   build:
     working_directory: ~/project
     docker:
@@ -17,9 +22,21 @@ jobs:
             else
               echo "Nothing to publish!" 
             fi
-            
+      - run:
+          name: comment jira id
+          command: |
+             ticket=$(curl -XGET https://api.github.com/repos/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME/pulls/$CIRCLE_PR_NUMBER | jq .title -r | awk -F ' ' '{print $2}' | sed 's/\#//g' | sed 's/\://'g)
+             curl \
+              -X POST \
+              -u $OAUTH_TOKEN:x-oauth-basic \
+              -d '{"body": "The Respective JIRA ticket URL for the PR is - https://project-sunbird.atlassian.net/browse/'"$ticket"/'."}' \
+                     https://api.github.com/repos/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME/issues/$CIRCLE_PR_NUMBER/comments
 workflows:
   version: 2
   build-workflow:
     jobs:
-      - build
+      - hold:
+          type: approval
+      - build:
+          requires:
+            - hold
