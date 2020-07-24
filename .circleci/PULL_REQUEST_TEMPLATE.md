@@ -1,10 +1,10 @@
-# Instruction for creating a pull request
+## Instruction for creating a pull request
 
  Pull request title should be in the below format. Otherwise pull request will not be allowed to merge
  
  E.g: Issue #EX-1000: pull request title
 
-# Description
+## Description
 
 Please include a summary of the change and which issue is fixed. Please also include relevant motivation and context. List any dependencies that are required for this change if any.
 
