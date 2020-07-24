@@ -2,7 +2,7 @@
 
  Pull request title should be in the below format. Otherwise pull request will not be allowed to merge
  
- E.g: Issue #EX-1000: pull request title
+>Issue #EX-1000: pull request title
 
 ## Description
 
