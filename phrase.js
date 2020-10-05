@@ -12,7 +12,7 @@ const getLocales = (authToken, projectURL, projectId) => {
 };
 
 const downloadFile = (authToken, projectURL, projectId, localeId, fileformat, encoding) => {
-    const file = http.getData(authToken, projectURL + '/' + projectId + '/locales/' + localeId + '/download?file_format=' + fileformat + '&encoding=' + encoding);
+    const file = http.getData(authToken, projectURL + '/' + projectId + '/locales/' + localeId + '/download?file_format=' + fileformat + '&encoding=' + encoding + '&include_unverified_translations=true');
     return request(file);
 };
 
