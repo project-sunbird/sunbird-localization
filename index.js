@@ -76,7 +76,8 @@ const run = async () => {
                                                                     if (fileformat === 'nested_json' || fileformat === 'json' || fileformat === 'react_simple_json'
                                                                         || fileformat === 'react_nested_json' || fileformat === 'simple_json' || fileformat === 'go_i18n'
                                                                         || fileformat === 'angular_translate' || fileformat === 'i18next') {
-                                                                        const object = await JSON.parse(data);
+                                                                        let object = await JSON.parse(data);
+                                                                        object = JSON.parse(JSON.stringify(object).replace(/"\s+|\s+"/g,'"'));
                                                                         await json.formatjson(object);
                                                                         await fs.writeFile(distFolder + '/' + prj + ' - ' + element['code'] + '.json', JSON.stringify(object), encoding, () => {
                                                                             files.push(prj + ' - ' + element['code'] + '.json');
