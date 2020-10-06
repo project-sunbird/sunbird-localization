@@ -1,4 +1,6 @@
 version: 2.1
+orbs:
+  pr-comment: benjlevesque/pr-comment@0.1.6
 jobs:
   build:
     working_directory: ~/project
@@ -6,14 +8,15 @@ jobs:
       - image: circleci/node:12 
     steps:
       - checkout
+      - pr-comment:
+          comment: Hello
       - run: npm install
    
       - run:
           name: Publish to NPM
           command: |
             if [ -z $CIRCLE_PR_NUMBER ]; then 
-              npm set //registry.npmjs.org/:_authToken=$NPM_TOKEN
-              npm publish ~/project 
+              echo "Publish artifact"
             else
               echo "Nothing to publish!" 
             fi
